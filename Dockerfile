@@ -8,6 +8,8 @@ FROM baxterprogers/fsl-base:v6.0.5.2
 RUN apt update && \
     apt install -y software-properties-common && \
     add-apt-repository universe && \
+    add-apt-repository -y "ppa:marutter/rrutter4.0" && \
+    add-apt-repository -y "ppa:c2d4u.team/c2d4u4.0+" && \
     apt update
 
 ## For AFNI on Ubuntu 20.04, https://afni.nimh.nih.gov/
@@ -16,7 +18,9 @@ RUN apt update && \
 RUN DEBIAN_FRONTEND=noninteractive apt install -y \
     tcsh xfonts-base libssl-dev       \
     python-is-python3                 \
-    python3-matplotlib                \
+    python3-matplotlib python3-numpy  \
+    python3-flask python3-flask-cors  \
+    python3-pil                       \
     gsl-bin netpbm gnome-tweak-tool   \
     libjpeg62 xvfb xterm vim curl     \
     gedit evince eog                  \
@@ -27,7 +31,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y \
     gnome-terminal nautilus           \
     gnome-icon-theme-symbolic         \
     firefox xfonts-100dpi             \
-    r-base-dev
+    r-base-dev cmake                  \
+    libgdal-dev libopenblas-dev       \
+    libnode-dev libudunits2-dev       \
+    libgfortran4 bc
 
 # Make a symbolic link for the specific version of GSL in this version of Ubuntu
 RUN ln -s /usr/lib/x86_64-linux-gnu/libgsl.so.23 /usr/lib/x86_64-linux-gnu/libgsl.so.19
