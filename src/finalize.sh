@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 #
-# Pipeline for refacing an mp2rage series using AFNI.
+# Finalize AFNI reface of mp2rage using FSL container.
 
 # Initialize defaults
 export label_info=
-export ref_niigz=/INPUTS/robust.nii.gz
-export targets_niigz="/INPUTS/e1real.nii.gz /INPUTS/e1imag.nii.gz"
+export targets_niigz="/OUTPUTS/real1.nii.gz /OUTPUTS/imag1.nii.gz"
 export out_dir=/OUTPUTS
 
 # Parse options
@@ -13,9 +12,7 @@ while [[ $# -gt 0 ]]; do
 	key="${1}"
 	case $key in
 		--label_info)
-			export label_info="${2}"; shift; shift ;;
-		--ref_niigz)
-			export ref_niigz="${2}"; shift; shift ;;
+			label_info="${2}"; shift; shift ;;
 		--targets_niigz)
             next="$2"
             while ! [[ "$next" =~ -.* ]] && [[ $# > 1 ]]; do
@@ -25,20 +22,16 @@ while [[ $# -gt 0 ]]; do
             done
             shift ;;
 		--out_dir)
-			export out_dir="${2}"; shift; shift ;;
+			out_dir="${2}"; shift; shift ;;
 		*)
 			echo Unknown input "${1}"; shift ;;
 	esac
 done
 
-# Reface
-@afni_refacer_run \
-	-input "${ref_niigz}" \
-	-mode_all \
-	-prefix "${out_dir}"/img
 
 # Apply face mask to target images
 # FIXME we are here
+
 
 # Make PDF
 thedate=$(date)
