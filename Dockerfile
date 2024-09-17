@@ -1,6 +1,8 @@
 ## Start with FSL, ImageMagick, python3/pandas, xvfb base docker
 # baxterprogers/fsl-base:v6.0.5.2  is on Ubuntu 20.04
-FROM baxterprogers/fsl-base:v6.0.5.2
+#FROM baxterprogers/fsl-base:v6.0.5.2
+
+FROM ubuntu:20.04
 
 ## General packages
 #     universe needed for AFNI
