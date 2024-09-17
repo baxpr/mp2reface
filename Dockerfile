@@ -1,4 +1,7 @@
 FROM afni/afni_make_build:AFNI_24.2.06
 
-RUN curl -o /opt/afni/install/MNI152_2009_template_SSW.nii.gz \
-    https://afni.nimh.nih.gov/pub/dist/atlases/afni_atlases_dist/MNI152_2009_template_SSW.nii.gz
+RUN mkdir /opt/afni/install/atlases && \
+    cd /opt/afni/install/atlases && \
+    curl -o afni_atlases_dist.tgz https://afni.nimh.nih.gov/pub/dist/atlases/afni_atlases_dist.tgz && \
+    tar -zxf afni_atlases_dist.tgz && \
+    rm -f afni_atlases_dist.tgz
