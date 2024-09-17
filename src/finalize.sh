@@ -4,7 +4,7 @@
 
 # Initialize defaults
 export label_info=
-export targets_niigz="/OUTPUTS/real1.nii.gz /OUTPUTS/imag1.nii.gz"
+export targets_niigz=
 export out_dir=/OUTPUTS
 
 # Parse options
@@ -30,7 +30,12 @@ done
 
 
 # Apply face mask to target images
-# FIXME we are here
+# Face voxels are exactly zero in the img.deface output from AFNI
+for tgt in ${targets_niigz[@]}; do
+    outname=$(basename ${tgt} .nii.gz)_deface.nii.gz
+    echo Target ${tgt} Outname ${outname}
+    fslmaths ${out_dir}/img.deface.nii.gz -bin -mul ${tgt} ${out_dir}/${outname}
+done
 
 
 # Make PDF
