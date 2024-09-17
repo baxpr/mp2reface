@@ -6,7 +6,7 @@
 docker run \
     --mount type=bind,src=`pwd -P`,dst=/wkdir \
     --entrypoint bash \
-    baxterprogers/mp2reface:test \
+    afni/afni_make_build:AFNI_24.2.06 \
     -c ' \
     export PATH=/wkdir/src:$PATH && \
     reface.sh \
